@@ -1,0 +1,11 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">تم تقديم طلبك بنجاح!</h4>
+        <p>شكراً لك على الطلب. سنقوم بالتواصل معك قريباً لتأكيد الطلب.</p>
+    </div>
+    <a href="{% url 'store:home' %}" class="btn btn-primary">العودة للصفحة الرئيسية</a>
+</div>
+{% endblock %}

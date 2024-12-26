@@ -1,0 +1,27 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="card-title mb-4">تسجيل الخروج</h3>
+                    <p class="mb-4">هل أنت متأكد من أنك تريد تسجيل الخروج؟</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt me-2"></i>نعم، تسجيل الخروج
+                            </button>
+                            <a href="{% url 'store:home' %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>إلغاء
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

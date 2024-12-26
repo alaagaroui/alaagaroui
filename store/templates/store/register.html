@@ -1,0 +1,123 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">
+                        <i class="fas fa-user-plus me-2"></i>إنشاء حساب جديد
+                    </h2>
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>يرجى تصحيح الأخطاء أدناه
+                        </div>
+                    {% endif %}
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="username" class="form-label">اسم المستخدم</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" 
+                                       name="username" 
+                                       class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                                       id="username" 
+                                       value="{{ form.username.value|default:'' }}"
+                                       required>
+                                {% if form.username.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.username.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">مطلوب. 150 حرف أو أقل. يمكن استخدام الحروف والأرقام و @ . + - _ فقط.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password1" class="form-label">كلمة المرور</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" 
+                                       name="password1" 
+                                       class="form-control {% if form.password1.errors %}is-invalid{% endif %}" 
+                                       id="password1" 
+                                       required>
+                                {% if form.password1.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.password1.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">
+                                <ul class="mt-2 ps-3">
+                                    <li>يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل</li>
+                                    <li>لا يمكن أن تكون كلمة المرور مشابهة لمعلوماتك الشخصية</li>
+                                    <li>يجب أن تحتوي على أحرف وأرقام ورموز</li>
+                                </ul>
+                            </small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password2" class="form-label">تأكيد كلمة المرور</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" 
+                                       name="password2" 
+                                       class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                       id="password2" 
+                                       required>
+                                {% if form.password2.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ form.password2.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-user-plus me-2"></i>تسجيل
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="mb-0">لديك حساب بالفعل؟ 
+                            <a href="{% url 'store:login' %}" class="text-primary">تسجيل الدخول</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// تفعيل التحقق من صحة النموذج
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+</script>
+{% endblock %}

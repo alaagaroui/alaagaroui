@@ -1,0 +1,63 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">سلة التسوق</h2>
+    {% if cart_items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>المنتج</th>
+                        <th>السعر</th>
+                        <th>الكمية</th>
+                        <th>المجموع</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'store:product_detail' item.product.id %}">
+                                {{ item.product.name }}
+                            </a>
+                        </td>
+                        <td>${{ item.product.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.get_total }}</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>المجموع الكلي:</strong></td>
+                        <td><strong>${{ total }}</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="text-end mt-3">
+            <a href="{% url 'store:home' %}" class="btn btn-secondary">
+                <i class="fas fa-shopping-bag me-2"></i>متابعة التسوق
+            </a>
+            <a href="{% url 'store:cart_checkout' %}" class="btn btn-success">
+                <i class="fas fa-check me-2"></i>إتمام الشراء
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            سلة التسوق فارغة
+        </div>
+        <a href="{% url 'store:home' %}" class="btn btn-primary">
+            <i class="fas fa-shopping-bag me-2"></i>تسوق الآن
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
